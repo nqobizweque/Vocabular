@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
@@ -22,7 +24,7 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
         db = new TermDB(this);
         final ImageButton btnBrowse = (ImageButton)findViewById(R.id.btnBrowse),
-                btnAdd = (ImageButton)findViewById(R.id.btnAdd);
+                btnAdd = (ImageButton)findViewById(R.id.btnAdd), btnAlerts = (ImageButton) findViewById(R.id.btnAlerts);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +39,14 @@ public class MyActivity extends Activity {
                 onBrowseClicked(v);
             }
         });
+
+        btnAlerts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAlertsClicked(v);
+            }
+        });
+
     }
 
     public void onBrowseClicked(View view){
@@ -98,4 +108,32 @@ public class MyActivity extends Activity {
         });
         alertDialog.show();
     }
+
+    public void onAlertsClicked(final View view) {
+
+        final String PREFS_NAME = "MyAlertsPrefFile";
+
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        if (settings.getBoolean("my_first_time", true)) {
+            //the app is being launched for first time, do something
+            Log.d("Comments", "First time");
+
+            // first time task
+            SharedPreferences.Editor editor = settings.edit();
+
+            editor.putBoolean("my_first_time", false);
+            editor.putString("start_time", "09:00");
+            editor.putString("end_time", "14:00");
+            editor.putString("frequency", "5");
+            editor.putString("days", "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday");
+            editor.apply();
+        }
+
+        Intent intent = new Intent(this, Alerts_Activity.class);
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivity(intent);
+        }
+    }
+
 }
