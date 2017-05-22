@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:paddingTop="20dp">
+
+    <LinearLayout
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:weightSum="1">
+
+        <TextView
+                android:padding="10dp"
+                android:text="Start Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alerts_start_time" android:layout_weight="0.32"/>
+        <EditText
+                android:layout_width="50dp"
+                android:layout_height="36dp"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/edit_alerts_start_time" android:layout_weight="0.4"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:weightSum="1">
+
+        <TextView
+                android:padding="10dp"
+                android:text="End Time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alerts_end_time" android:layout_weight="0.33"/>
+        <EditText
+                android:layout_width="50dp"
+                android:layout_height="36dp"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/edit_alerts_end_time" android:layout_weight="0.4"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:paddingBottom="20dp"
+            android:layout_height="wrap_content" android:weightSum="1">
+
+        <TextView
+                android:padding="10dp"
+                android:text="Frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alerts_edit_alerts_frequency" android:layout_weight="0.32"/>
+        <EditText
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/edit_alerts_frequency" android:layout_weight="0.4"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:paddingBottom="20dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:weightSum="1">
+
+        <TextView
+                android:padding="10dp"
+                android:text="Days of the week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/alerts_days" android:layout_weight="0.2"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="100dp"
+                android:layout_height="match_parent" android:layout_weight="0.8" android:weightSum="1">
+
+            <Button
+                    android:text="S"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_sunday"/>
+            <Button
+                    android:text="M"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_monday"/>
+            <Button
+                    android:text="T"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_tuesday"/>
+            <Button
+                    android:text="W"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_wednesday"/>
+            <Button
+                    android:text="T"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_thursday"/>
+            <Button
+                    android:text="F"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_friday"
+                    android:layout_weight="0.71"/>
+            <Button
+                    android:text="S"
+                    android:layout_margin="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:id="@+id/button_alerts_saturday"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_gravity="right"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:paddingBottom="20dp"
+            android:layout_height="wrap_content" android:weightSum="1">
+
+
+        <Button
+                android:text="Save"
+                android:minWidth="88dp"
+                android:layout_width="wrap_content"
+                android:radius="2dp"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:id="@+id/button_alerts_save" android:layout_weight=".3"/>
+
+        <Button
+                android:text="Cancel"
+                android:minWidth="88dp"
+                android:radius="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:id="@+id/button_alerts_cancel" android:layout_weight=".3"/>
+    </LinearLayout>
+</LinearLayout>
