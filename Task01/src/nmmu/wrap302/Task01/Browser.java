@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
-
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Created by BL3SS3D on 08 May 2017.
@@ -26,7 +22,26 @@ public class Browser extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.browser_main);
 
-        ImageView btnFLoatAdd = (ImageView) findViewById(R.id.btnFloatAdd);
+        final ImageView btnFLoatAdd = (ImageView) findViewById(R.id.btnFloatAdd),
+                ivSearchButton = (ImageView) findViewById(R.id.ivSearchButton),
+                ivSearchClear = (ImageView) findViewById(R.id.ivSearchClear);
+        final EditText etSearch = (EditText) findViewById(R.id.etSearch);
+
+        ivSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchDB(etSearch.getText().toString());
+            }
+        });
+
+        ivSearchClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                etSearch.getText().clear();
+                readFile();
+            }
+        });
+
         btnFLoatAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,9 +57,33 @@ public class Browser extends Activity {
 
     static ListView lvTerms;
 
-    public static void readFile(){
+    public void searchDB(String searchTerm){
+        Cursor resultSet = MyActivity.db.getSearch(searchTerm);
         try {
-            Cursor resultSet = MyActivity.db.getCursor();
+            if(resultSet.getCount() == 0){
+                Toast.makeText(termAdapter.getContext(), "No terms found", Toast.LENGTH_SHORT).show();
+            }else if(resultSet.moveToFirst()) {
+                termAdapter.clear();
+                do {
+                    String term = resultSet.getString(resultSet.getColumnIndex(TermDB.COL_2)),
+                            definition = resultSet.getString(resultSet.getColumnIndex(TermDB.COL_3)),
+                            synonyms = resultSet.getString(resultSet.getColumnIndex(TermDB.COL_4)),
+                            antonyms = resultSet.getString(resultSet.getColumnIndex(TermDB.COL_5));
+                    termAdapter.add(new Term(term, definition, synonyms, antonyms));
+                } while (resultSet.moveToNext());
+                resultSet.close();
+                lvTerms.refreshDrawableState();
+            }else{
+                Toast.makeText(termAdapter.getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            Toast.makeText(termAdapter.getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void readFile(){
+        Cursor resultSet = MyActivity.db.getCursor();
+        try {
             if(resultSet.moveToFirst()) {
                 termAdapter.clear();
                 do {
@@ -60,13 +99,12 @@ public class Browser extends Activity {
                 Toast.makeText(termAdapter.getContext(), "No terms found", Toast.LENGTH_SHORT).show();
             }
         }catch (Exception e){
-            Toast.makeText(termAdapter.getContext(), "Errror reading Database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(termAdapter.getContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
         }
     }
 
     public void onAddClicked(final View view){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        //alertDialog.setTitle("New Term");
         final EditText term = new EditText(this),
                 definition = new EditText(this),
                 synonym = new EditText(this),

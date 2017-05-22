@@ -9,10 +9,46 @@
                 android:paddingTop="0dp"
                 tools:context="nmmu.wrap302.Task01.MyActivity">
 
-    <ListView
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" android:id="@+id/lvTerms"/>
+            android:layout_height="match_parent">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/panelSearch">
+                <ImageView
+                        android:src="@android:drawable/ic_menu_search"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/ivSearchButton" android:layout_weight=".15"
+                        android:padding="5dp"/>
+                <EditText
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:inputType="textPersonName"
+                        android:ems="10"
+                        android:id="@+id/etSearch" android:layout_weight=".7" android:hint="Search"
+                        android:textAppearance="@android:style/Theme.Black" android:clickable="false"
+                        android:textSize="20sp" android:scrollHorizontally="true" android:layout_margin="7dp"
+                        android:background="?android:attr/colorBackgroundFloating"
+                        android:textColor="?android:attr/textColorPrimaryNoDisable" android:paddingLeft="2dp"/>
+                <ImageView
+                        android:src="@android:drawable/ic_menu_close_clear_cancel"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent" android:id="@+id/ivSearchClear" android:layout_weight=".15"
+                        android:padding="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+        <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true" android:id="@+id/lvTerms" android:layout_below="@+id/linearLayout"/>
+    </LinearLayout>
     <ImageView
             android:src="@drawable/adding"
             android:layout_width="60dp"

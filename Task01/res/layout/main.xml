@@ -10,7 +10,7 @@
             android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
             android:textSize="10sp" android:textStyle="bold|italic" android:textAlignment="center"
             android:textColor="@android:color/white" android:fontFamily="serif"
-            android:background="@drawable/thewords"
+            android:background="@android:color/holo_orange_light"
             android:src="@drawable/browse" android:scaleType="fitCenter" android:padding="70dp"
             android:elevation="0dp"/>
 
@@ -24,21 +24,20 @@
                 android:layout_height="fill_parent" android:id="@+id/btnAdd"
                 android:scaleType="fitCenter" android:layout_weight="0.50"
                 android:textColor="@android:color/darker_gray" android:textSize="30sp" android:textStyle="bold|italic"
-                android:fontFamily="serif" android:background="@drawable/add"
+                android:fontFamily="serif" android:background="@android:color/holo_orange_dark"
                 android:src="@drawable/addlist" android:padding="60dp"/>
         <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="fill_parent" android:id="@+id/btnAlerts"
                 android:scaleType="fitCenter" android:layout_weight="0.50"
                 android:textSize="36sp" android:textIsSelectable="true" android:textStyle="bold|italic"
-                android:fontFamily="serif" android:background="@drawable/notification"
+                android:fontFamily="serif" android:background="@android:color/holo_red_light"
                 android:src="@drawable/alarms" android:padding="60dp"/>
     </LinearLayout>
     <ImageButton
             android:layout_width="match_parent"
             android:layout_height="0dp" android:id="@+id/btnSettings" android:layout_weight=".3"
             android:textStyle="bold|italic" android:textSize="36sp"
-            android:fontFamily="serif" android:background="?android:attr/textColorHighlightInverse"
+            android:fontFamily="serif" android:background="?android:attr/colorFocusedHighlight"
             android:src="@drawable/usersettingss" android:scaleType="fitCenter" android:padding="60dp"/>
 </LinearLayout>
-
