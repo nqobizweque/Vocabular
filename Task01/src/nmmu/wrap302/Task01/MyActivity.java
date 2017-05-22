@@ -9,8 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
 
-import java.io.File;
-
 public class MyActivity extends Activity {
     /**
      * Called when the activity is first created.
@@ -22,7 +20,8 @@ public class MyActivity extends Activity {
         setContentView(R.layout.main);
         db = new TermDB(this);
         final ImageButton btnBrowse = (ImageButton)findViewById(R.id.btnBrowse),
-                btnAdd = (ImageButton)findViewById(R.id.btnAdd);
+                btnAdd = (ImageButton)findViewById(R.id.btnAdd),
+                btnAlerts = (ImageButton) findViewById(R.id.btnAlerts);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,6 +36,19 @@ public class MyActivity extends Activity {
                 onBrowseClicked(v);
             }
         });
+
+        btnAlerts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAlertClicked(v);
+            }
+        });
+
+        if(db.getCursor().getCount() == 0){
+            db.addTerm(new Term("Rentless", "unceasingly intense; harsh or inflexible", "persistent, unstoppable", "merciful, yielding"));
+            db.addTerm(new Term("Irresolute", "showing or feeling hesitancy; uncertain", "indecisive, hesitant, tentative", ""));
+            db.addTerm(new Term("Hedonist", "a person who believes that the pursuit of pleasure is the most important thing in life; a pleasure-seeker", "sybarite, sensualist, voluptuary, pleasure seeker", "puritan, ascetic"));
+        }
     }
 
     public void onBrowseClicked(View view){
@@ -46,11 +58,17 @@ public class MyActivity extends Activity {
         }
     }
 
+    public void onAlertClicked(View view){
+        Intent intent = new Intent(this, Alerts.class);
+        if(intent.resolveActivity(getPackageManager()) != null){
+            startActivity(intent);
+        }
+    }
+
     public static TermDB db;
 
     public void onAddClicked(final View view){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        //alertDialog.setTitle("New Term");
         final EditText term = new EditText(this),
                 definition = new EditText(this),
                 synonym = new EditText(this),

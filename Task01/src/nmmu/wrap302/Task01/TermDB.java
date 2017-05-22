@@ -2,22 +2,9 @@ package nmmu.wrap302.Task01;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteStatement;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.InputStream;
-import java.util.HashSet;
-import java.util.Set;
-
 
 /**
  * Created by BL3SS3D on 13 May 2017.
@@ -41,9 +28,6 @@ public class TermDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DB_CREATE);
-//        this.addTerm(new Term("Rentless", "unceasingly intense; harsh or inflexible", "persistent, unstoppable", "merciful, yielding"));
-//        this.addTerm(new Term("Irresolute", "showing or feeling hesitancy; uncertain", "indecisive, hesitant, tentative", ""));
-//        this.addTerm(new Term("Hedonist", "a person who believes that the pursuit of pleasure is the most important thing in life; a pleasure-seeker", "sybarite, sensualist, voluptuary, pleasure seeker", "puritan, ascetic"));
     }
 
     @Override
@@ -70,21 +54,32 @@ public class TermDB extends SQLiteOpenHelper {
         return result;
     }
 
+    public Cursor getSearch(String searchString){
+        Cursor result = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE "
+                + COL_2 + " LIKE '%" + searchString + "%'", null);
+        return result;
+    }
+
     public boolean updateRecord(Term oldTerm, Term upTerm){
         if(oldTerm.equals(upTerm))
             return false;
         ContentValues content = new ContentValues();
         if(oldTerm.term == upTerm.term){
-            if(deleteRecord(oldTerm.term))
-                return addTerm(upTerm);
+            content.put(COL_2, upTerm.term);
+            content.put(COL_3, upTerm.definition);
+            content.put(COL_4, upTerm.synonyms);
+            content.put(COL_5, upTerm.antonyms);
+            int result = db.update(TABLE_NAME, content, COL_2 + " = ?", new String[]{oldTerm.term});
+            if (result == -1)
+                return false;
+
         }else{
             content.put(COL_3, upTerm.definition);
             content.put(COL_4, upTerm.synonyms);
             content.put(COL_5, upTerm.antonyms);
             int result = db.update(TABLE_NAME, content, COL_2 + " = ?", new String[]{oldTerm.term});
-            if (result == -1) {
+            if (result == -1)
                 return false;
-            }
         }
         return true;
     }
